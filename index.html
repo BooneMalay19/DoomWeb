@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rodando Doom no YouTube</title>
+    <style>
+        #doom-container {
+            width: 100%;
+            height: 400px;
+            display: none; /* Esconde o Doom inicialmente */
+            background: black;
+        }
+        iframe {
+            width: 100%;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Substituindo vídeo do YouTube pelo Chocolate Doom</h1>
+    
+    <!-- Iframe do YouTube -->
+    <div id="youtube-container">
+        <iframe id="youtube-iframe" src="https://www.youtube.com/embed/8-ibeC1P5vs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
+    <!-- Container para o Doom -->
+    <div id="doom-container">
+        <p>Chocolate Doom está rodando...</p>
+    </div>
+
+    <button onclick="startDoom()">Iniciar Chocolate Doom</button>
+
+    <script>
+        function startDoom() {
+            // Esconde o vídeo do YouTube
+            document.getElementById('youtube-container').style.display = 'none';
+            
+            // Mostra o container do Doom
+            document.getElementById('doom-container').style.display = 'block';
+
+            // Redireciona para a rota do Flask que executa o Doom
+            fetch('/start_doom')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('doom-container').innerHTML = data;
+                });
+        }
+    </script>
+
+</body>
+</html>
